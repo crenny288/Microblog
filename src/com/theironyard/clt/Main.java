@@ -8,22 +8,22 @@ import java.util.HashMap;
 
 public class Main {
 
-        static User user;
+    static User user;
 
     public static void main(String[] args) {
-        // write your code here
+
 
         Spark.init();
 
         Spark.get(
                 "/",
                 ((request, response) -> {
-                    HashMap m = new HashMap();
+                    HashMap<String, User> model = new HashMap<>();
                     if (user == null) {
-                        return new ModelAndView(m, "index.html");
+                        return new ModelAndView(model, "index.html");
                     } else {
-                        m.put("name", user.name);
-                        return new ModelAndView(m, "messages.html");
+                        model.put("name", user);
+                        return new ModelAndView(model, "messages.html");
                     }
                 }),
                 new MustacheTemplateEngine()
